@@ -4,6 +4,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 #polybar mybar &
 /home/rafael/.local/bin/launch-bar &
 dunst &
+blueman-applet &
 feh --bg-scale /home/rafael/images/wall.{jpg,png} &
 picom &
 
