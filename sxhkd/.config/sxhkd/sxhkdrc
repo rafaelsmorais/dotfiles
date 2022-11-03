@@ -23,7 +23,7 @@ super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
-super + {_,shift + }w
+super + {_,shift + }c
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
@@ -135,3 +135,10 @@ XF86AudioMute
 
 XF86AudioMicMute
 	wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+#
+# programs
+#
+
+super + w
+	firefox
