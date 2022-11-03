@@ -1,7 +1,7 @@
 #options
 auto-reload yes
 prepopulate-query-feeds yes
-browser "com.brave.Browser '%u'"
+browser "firefox --new-tab '%u'"
 
 #macros
 #open videos on mpv
