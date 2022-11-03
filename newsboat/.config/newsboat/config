@@ -1,0 +1,30 @@
+#options
+auto-reload yes
+prepopulate-query-feeds yes
+browser "com.brave.Browser '%u'"
+
+#macros
+#open videos on mpv
+macro y set browser "mpv --fs %u" ; open-in-browser ; set browser "elinks %u"
+#open images on sxiv
+macro i set browser "sxiv %u" ; open-in-browser ; set browser "elinks %u"
+#open articles on w3m using readable-cli
+macro r set browser "readable %u | w3m -T text/html" ; open-in-browser ; set browser "elinks %u"
+
+#vim-like bindings
+unbind-key j
+unbind-key k
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+
+#colors
+color listfocus color223 green 
+color listfocus_unread color223 green bold
+color listnormal color223 default 
+color listnormal_unread color223 default bold
+color title color235 green bold
+color info color223 green 
+color hint-key color235 green bold
+
