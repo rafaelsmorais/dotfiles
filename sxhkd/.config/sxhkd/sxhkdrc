@@ -145,3 +145,6 @@ super + w
 
 super + shift + x
 	betterlockscreen -l blur
+
+super + shift + u
+	change-keymap
