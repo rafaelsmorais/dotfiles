@@ -142,3 +142,6 @@ XF86AudioMicMute
 
 super + w
 	firefox
+
+super + shift + x
+	betterlockscreen -l blur
