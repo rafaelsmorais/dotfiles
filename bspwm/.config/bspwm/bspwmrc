@@ -2,13 +2,17 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 #polybar mybar &
-/home/rafael/.local/bin/launch-bar &
+/home/rafael/.local/bin/change-keymap &
+/home/rafael/.local/bin/toggle-monitor &
 dunst &
+aria2c --enable-rpc --rpc-listen-all &
 blueman-applet &
-feh --bg-scale /home/rafael/images/wall.{jpg,png} &
 picom &
 
 bspc monitor -d 1 2 3 4 5 6
+
+/home/rafael/.local/bin/launch-bar &
+feh --bg-scale /home/rafael/images/wall.{jpg,png} &
 
 bspc config border_width         2
 bspc config window_gap           7
@@ -18,7 +22,8 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a Chromium desktop='^2'
+bspc rule -a firefox desktop='^1'
 bspc rule -a mplayer2 state=floating
+bspc rule -a Galculator state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
