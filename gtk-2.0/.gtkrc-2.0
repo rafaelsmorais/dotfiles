@@ -1,1 +1,4 @@
-gtk-theme-name = "Arc-Dark-solid"
+gtk-theme-name = "Gruvbox-Material-Dark"
+gtk-icon-theme-name = "Gruvbox-Material-Dark"
+gtk-cursor-theme = "Adwaita"
+gtk-font-name = "Google Sans"

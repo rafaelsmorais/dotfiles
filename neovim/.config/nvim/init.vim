@@ -12,15 +12,12 @@ syntax on
 
 " vim plug plugins
 call plug#begin()
-Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 Plug 'itchyny/lightline.vim'
-Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-commentary'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'patstockwell/vim-monokai-tasty'
 call plug#end()
 
 "let nerdtree show hidden files
@@ -38,13 +35,11 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
-" colorschemes
-"autocmd vimenter * ++nested colorscheme gruvbox
-let g:vim_monokai_tasty_italic = 1
-let g:vim_monokai_tasty_machine_tint = 1
-colorscheme vim-monokai-tasty
-
-" lightline config
-let g:lightline = {}
-"let g:lightline.colorscheme = 'gruvbox'
-let g:lightline.colorscheme = 'monokai_tasty'
+"Colorscheme
+let g:gruvbox_material_background = 'medium'
+let g:gruvbox_material_transparent_background = 1
+let g:gruvbox_material_better_performance = 1
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_enable_italic = 1
+colorscheme gruvbox-material
+let g:lightline = {'colorscheme' : 'gruvbox_material'}
