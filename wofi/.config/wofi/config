@@ -1,0 +1,6 @@
+allow_images=true 
+term=alacritty
+insensitive=true
+sort_order=default
+gtk_dark=true
+dynamic_lines=true

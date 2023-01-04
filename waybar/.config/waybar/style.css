@@ -1,0 +1,49 @@
+* {
+    font-family: JetBrainsMono Nerd Font;
+    font-size: 14px;
+}
+
+window#waybar {
+    /* background: rgba(29, 32, 33, 0.9); */
+    background: rgba(40, 40, 40, 0.9);
+    color: #d4be98;
+}
+
+#window {
+    font-weight: bold;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    color: #504945;
+    min-width: 0;
+}
+
+#workspaces button.focused {
+    color: #89b482;
+    font-weight: bold;
+}
+
+#cpu, #memory, #temperature, #battery, #pulseaudio, #clock, #tray, #custom-powermenu {
+    padding: 0 10px;
+}
+
+#pulseaudio.muted {
+    color: #504945;
+}
+
+#battery.warning {
+    color: #d8a657;
+}
+
+#battery.critical {
+    color: #ea6962;
+}
+
+#temperature.critical {
+    color: #ea6962;
+}
+
+#custom-separator {
+    color: #504945;
+}
