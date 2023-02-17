@@ -6,7 +6,7 @@ set mouse=a
 set noshowmode "for lightline
 "set tabstop=4
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab  smarttab autoindent
-set scrolloff=8
+setglobal scrolloff=8
 set signcolumn=yes
 syntax on
 
@@ -18,6 +18,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-commentary'
+Plug 'vimwiki/vimwiki'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
@@ -35,6 +36,12 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+
+" Vim Wiki config
+let g:vimwiki_list = [{
+            \"path": "/var/home/rafael/Documentos/vimwiki/",
+            \"nested_syntaxes": {"python": "python"},
+            \}]
 
 "Colorscheme
 let g:gruvbox_material_background = 'medium'

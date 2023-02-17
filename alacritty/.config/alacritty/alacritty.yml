@@ -154,6 +154,7 @@ colors: *gruvbox_material_medium_dark
 
 window:
   opacity: 0.9
+  decorations: None
 
 env:
   TERM: xterm-256color
