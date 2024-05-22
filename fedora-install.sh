@@ -2,17 +2,17 @@
 
 # rpm fusion
 
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-sudo dnf update
+sudo dnf -y update
 
 ## hardware accel
 
-sudo dnf install intel-media-driver
+sudo dnf install -y intel-media-driver
 
 ## full ffmpeg
 
-sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 
 # setting umask to 077
 umask 077
@@ -20,7 +20,7 @@ sudo sed -i 's/umask 022/umask 077/g' /etc/bashrc
 
 # debloat
 
-sudo dnf remove firefox gnome-calculator gnome-calendar gnome-characters gnome-classic-session gnome-clocks gnome-connections gnome-contacts gnome-initial-setup gnome-shell-extension-apps-menu gnome-shell-extension-background-logo gnome-shell-extension-common gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list gnome-video-effects gnome-weather @libreoffice
+sudo dnf remove -y firefox gnome-calculator gnome-calendar gnome-characters gnome-classic-session gnome-clocks gnome-connections gnome-contacts gnome-initial-setup gnome-shell-extension-apps-menu gnome-shell-extension-background-logo gnome-shell-extension-common gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list gnome-video-effects gnome-weather @libreoffice
 
 # flatpak config
 
@@ -31,13 +31,13 @@ flatpak install --noninteractive -y org.mozilla.firefox org.mozilla.Thunderbird 
 
 # install packages
 
-sudo dnf install neovim alacritty tmux adw-gtk3 firewall-config @virtualization steam-devices @development-tools
+sudo dnf install -y neovim alacritty tmux adw-gtk3-theme firewall-config @virtualization steam-devices @development-tools stow
 
 # fonts
 
 firacode_url = $(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url.*FiraCode.zip" | cut -d : -f 2,3 | tr -d \")
 
-mkdir -p .local/share/fonts
+mkdir -p ~/.local/share/fonts
 
 curl -sL https://github.com/rsms/inter/releases/download/v4.0/Inter-4.0.zip -o /tmp/Inter.zip
 unzip /tmp/Inter.zip -d /tmp/Inter
@@ -97,4 +97,4 @@ sudo firewall-cmd --reload
 # dotfiles
 
 git clone https://github.com/rafaelsmorais/dotfiles.git ~/dotfiles
-stow --no-folding -d ~/dotfiles -t /home/$(whoami) * 
+stow --no-folding -d ~/dotfiles -t /home/$(whoami) alacritty tmux nvim 
