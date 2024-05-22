@@ -80,7 +80,38 @@ sudo systemctl enable libvirtd
 sudo usermod -aG libvirt "$(whoami)"
 
 ## change to nts over ntp
-sudo curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/chrony.conf -o /etc/chrony.conf
+sudo cat > /etc/chrony.conf <<EOF
+server time.cloudflare.com iburst nts
+server ntppool1.time.nl iburst nts
+server nts.netnod.se iburst nts
+server ptbtime1.ptb.de iburst nts
+server time.dfm.dk iburst nts
+server time.cifelli.xyz iburst nts
+server a.st1.ntp.br nts iburst
+server b.st1.ntp.br nts iburst
+server c.st1.ntp.br nts iburst
+server d.st1.ntp.br nts iburst
+server gps.ntp.br nts iburst
+
+minsources 3
+authselectmode require
+
+# EF
+dscp 46
+
+driftfile /var/lib/chrony/drift
+ntsdumpdir /var/lib/chrony
+
+leapsectz right/UTC
+makestep 1.0 3
+
+rtconutc
+rtcsync
+
+cmdport 0
+
+noclientlog
+EOF
 
 ## firewall
 sudo firewall-cmd --permanent --remove-port=1025-65535/udp
