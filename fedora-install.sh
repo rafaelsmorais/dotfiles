@@ -8,7 +8,7 @@ sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-rel
 
 sudo dnf remove -y firefox gnome-calculator gnome-calendar gnome-characters gnome-classic-session gnome-clocks gnome-connections gnome-contacts gnome-initial-setup gnome-shell-extension-apps-menu gnome-shell-extension-background-logo gnome-shell-extension-common gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list gnome-video-effects gnome-weather gnome-maps libreoffice-calc libreoffice-core libreoffice-data libreoffice-filters libreoffice-graphicfilter libreoffice-gtk3 libreoffice-gtk4 libreoffice-help-en libreoffice-help-pt-BR libreoffice-impress libreoffice-langpack-en libreoffice-langpack-pt-BR libreoffice-ogltrans libreoffice-opensymbol-fonts libreoffice-pdfimport libreoffice-pyuno libreoffice-ure libreoffice-ure-common libreoffice-writter libreoffice-x11 libreoffice-xsltfilter
 
-sudo dnf update
+sudo dnf update -y
 
 # install packages
 
