@@ -4,47 +4,38 @@
 
 sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-sudo dnf -y update
-
-## hardware accel
-
-sudo dnf install -y intel-media-driver
-
-## full ffmpeg
-
-sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
-
-# setting umask to 077
-umask 077
-sudo sed -i 's/umask 022/umask 077/g' /etc/bashrc
-
 # debloat
 
-sudo dnf remove -y firefox gnome-calculator gnome-calendar gnome-characters gnome-classic-session gnome-clocks gnome-connections gnome-contacts gnome-initial-setup gnome-shell-extension-apps-menu gnome-shell-extension-background-logo gnome-shell-extension-common gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list gnome-video-effects gnome-weather @libreoffice
+sudo dnf remove -y firefox gnome-calculator gnome-calendar gnome-characters gnome-classic-session gnome-clocks gnome-connections gnome-contacts gnome-initial-setup gnome-shell-extension-apps-menu gnome-shell-extension-background-logo gnome-shell-extension-common gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list gnome-video-effects gnome-weather gnome-maps libreoffice-calc libreoffice-core libreoffice-data libreoffice-filters libreoffice-graphicfilter libreoffice-gtk3 libreoffice-gtk4 libreoffice-help-en libreoffice-help-pt-BR libreoffice-impress libreoffice-langpack-en libreoffice-langpack-pt-BR libreoffice-ogltrans libreoffice-opensymbol-fonts libreoffice-pdfimport libreoffice-pyuno libreoffice-ure libreoffice-ure-common libreoffice-writter libreoffice-x11 libreoffice-xsltfilter
+
+sudo dnf update
+
+# install packages
+
+sudo dnf install -y neovim alacritty tmux adw-gtk3-theme firewall-config @virtualization steam-devices @development-tools stow intel-media-driver
+sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 
 # flatpak config
 
 sudo flatpak remote-delete fedora
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-
 flatpak install --noninteractive -y org.mozilla.firefox org.mozilla.Thunderbird com.getpostman.Postman com.github.IsmaelMartinez.teams_for_linux com.mattjakeman.ExtensionManager io.bassi.Amberol io.github.celluloid_player.Celluloid net.nokyan.Resources org.gimp.GIMP org.gtk.Gtk3theme.adw-gtk3-dark org.libreoffice.LibreOffice com.github.tchx84.Flatseal com.microsoft.Edge org.gnome.Calculator org.gnome.Calendar org.gnome.Characters org.gnome.Evince org.gnome.Extensions org.gnome.Loupe org.gnome.Weather com.valvesoftware.Steam com.github.finefindus.eyedropper
 
-# install packages
-
-sudo dnf install -y neovim alacritty tmux adw-gtk3-theme firewall-config @virtualization steam-devices @development-tools stow
 
 # fonts
 
 mkdir -p ~/.local/share/fonts
 
+## Inter
 curl -sL https://github.com/rsms/inter/releases/download/v4.0/Inter-4.0.zip -o /tmp/Inter.zip
 unzip /tmp/Inter.zip -d /tmp/Inter
 cp /tmp/Inter/Inter.ttc ~/.local/share/fonts
 cp /tmp/Inter/*.ttf ~/.local/share/fonts
 rm -rf /tmp/Inter*
 
+## FiraCode Nerd Font
 curl -sL $(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url.*FiraCode.zip" | cut -d : -f 2,3 | tr -d \") -o /tmp/FiraCode.zip
-unzip /tmp/FiraCode.zip /tmp/FiraCode
+unzip /tmp/FiraCode.zip -d /tmp/FiraCode
 rm /tmp/FiraCode/LICENSE /tmp/FiraCode/README.md
 cp -r /tmp/FiraCode ~/.local/share/fonts
 rm -rf /tmp/FiraCode
@@ -70,15 +61,18 @@ gsettings set org.gnome.desktop.sound allow-volume-above-100-percent 'true'
 gsettings set org.gnome.desktop.interface clock-show-weekday true
 gsettings set org.gnome.desktop.interface clock-show-seconds true
 
-
 # system config
+
+# setting umask to 077
+umask 077
+sudo sed -i 's/umask 022/umask 077/g' /etc/bashrc
 
 ## libvirt
 sudo systemctl enable libvirtd
 sudo usermod -aG libvirt "$(whoami)"
 
 ## change to nts over ntp
-sudo cat > /etc/chrony.conf <<EOF
+cat > /tmp/chrony.conf <<EOF
 server time.cloudflare.com iburst nts
 server ntppool1.time.nl iburst nts
 server nts.netnod.se iburst nts
@@ -111,7 +105,11 @@ cmdport 0
 noclientlog
 EOF
 
+sudo cp -f /tmp/chrony.conf /etc/chrony.conf
+rm /tmp/chrony.conf
+
 ## firewall
+echo "Setting Firewall:"
 sudo firewall-cmd --permanent --remove-port=1025-65535/udp
 sudo firewall-cmd --permanent --remove-port=1025-65535/tcp
 sudo firewall-cmd --permanent --remove-service=mdns
@@ -125,6 +123,10 @@ sudo firewall-cmd --reload
 
 # dotfiles
 
+## install tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+
+## symlink dotfiles
 stow --no-folding -d ~/dotfiles -t /home/$(whoami) alacritty tmux nvim 
 
 # tpm setup
