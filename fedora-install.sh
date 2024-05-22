@@ -24,8 +24,8 @@ sudo dnf remove -y firefox gnome-calculator gnome-calendar gnome-characters gnom
 
 # flatpak config
 
-flatpak remote-delete fedora
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-delete fedora
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 flatpak install --noninteractive -y org.mozilla.firefox org.mozilla.Thunderbird com.getpostman.Postman com.github.IsmaelMartinez.teams_for_linux com.mattjakeman.ExtensionManager io.bassi.Amberol io.github.celluloid_player.Celluloid net.nokyan.Resources org.gimp.GIMP org.gtk.Gtk3theme.adw-gtk3-dark org.libreoffice.LibreOffice com.github.tchx84.Flatseal com.microsoft.Edge org.gnome.Calculator org.gnome.Calendar org.gnome.Characters org.gnome.Evince org.gnome.Extensions org.gnome.Loupe org.gnome.Weather com.valvesoftware.Steam com.github.finefindus.eyedropper
 
@@ -35,8 +35,6 @@ sudo dnf install -y neovim alacritty tmux adw-gtk3-theme firewall-config @virtua
 
 # fonts
 
-firacode_url = $(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url.*FiraCode.zip" | cut -d : -f 2,3 | tr -d \")
-
 mkdir -p ~/.local/share/fonts
 
 curl -sL https://github.com/rsms/inter/releases/download/v4.0/Inter-4.0.zip -o /tmp/Inter.zip
@@ -45,8 +43,8 @@ cp /tmp/Inter/Inter.ttc ~/.local/share/fonts
 cp /tmp/Inter/*.ttf ~/.local/share/fonts
 rm -rf /tmp/Inter*
 
-curl -sL $firacode_url -o /tmp/firacode.zip
-unzip /tmp/firacode.zip /tmp/FiraCode
+curl -sL $(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url.*FiraCode.zip" | cut -d : -f 2,3 | tr -d \") -o /tmp/FiraCode.zip
+unzip /tmp/FiraCode.zip /tmp/FiraCode
 rm /tmp/FiraCode/LICENSE /tmp/FiraCode/README.md
 cp -r /tmp/FiraCode ~/.local/share/fonts
 rm -rf /tmp/FiraCode
@@ -133,6 +131,6 @@ stow --no-folding -d ~/dotfiles -t /home/$(whoami) alacritty tmux nvim
 
 echo "add_dracutmodules+=\" tpm2-tss \"" | sudo tee /etc/dracut.conf.d/tpm2.conf
 echo -n "Enter root disk: " 
-read nome
+read root_disk
 sudo systemd-cryptenroll --wipe-slot tpm2 --tpm2-device auto --tpm2-pcrs "0+1+2+3+4+5+7+9" /dev/$root_disk
 sudo dracut -f
