@@ -129,3 +129,11 @@ sudo firewall-cmd --reload
 
 git clone https://github.com/rafaelsmorais/dotfiles.git ~/dotfiles
 stow --no-folding -d ~/dotfiles -t /home/$(whoami) alacritty tmux nvim 
+
+# tpm setup
+
+echo "add_dracutmodules+=\" tpm2-tss \"" | sudo tee /etc/dracut.conf.d/tpm2.conf
+echo -n "Enter root disk: " 
+read nome
+sudo systemd-cryptenroll --wipe-slot tpm2 --tpm2-device auto --tpm2-pcrs "0+1+2+3+4+5+7+9" /dev/$root_disk
+sudo dracut -f
