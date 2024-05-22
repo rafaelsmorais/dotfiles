@@ -127,7 +127,6 @@ sudo firewall-cmd --reload
 
 # dotfiles
 
-git clone https://github.com/rafaelsmorais/dotfiles.git ~/dotfiles
 stow --no-folding -d ~/dotfiles -t /home/$(whoami) alacritty tmux nvim 
 
 # tpm setup
