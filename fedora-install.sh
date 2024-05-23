@@ -1,26 +1,112 @@
 #!/bin/bash
 
-# rpm fusion
-
-sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
 # debloat
 
-sudo dnf remove -y firefox gnome-calculator gnome-calendar gnome-characters gnome-classic-session gnome-clocks gnome-connections gnome-contacts gnome-initial-setup gnome-shell-extension-apps-menu gnome-shell-extension-background-logo gnome-shell-extension-common gnome-shell-extension-launch-new-instance gnome-shell-extension-places-menu gnome-shell-extension-window-list gnome-video-effects gnome-weather gnome-maps libreoffice-calc libreoffice-core libreoffice-data libreoffice-filters libreoffice-graphicfilter libreoffice-gtk3 libreoffice-gtk4 libreoffice-help-en libreoffice-help-pt-BR libreoffice-impress libreoffice-langpack-en libreoffice-langpack-pt-BR libreoffice-ogltrans libreoffice-opensymbol-fonts libreoffice-pdfimport libreoffice-pyuno libreoffice-ure libreoffice-ure-common libreoffice-writter libreoffice-x11 libreoffice-xsltfilter
+sudo dnf remove -y \
+	firefox \
+	gnome-boxes \
+	gnome-calculator \
+	gnome-calendar \
+	gnome-characters \
+	gnome-classic-session \
+	gnome-clocks \
+	gnome-connections \
+	gnome-contacts \
+	gnome-initial-setup \
+	gnome-maps \
+	gnome-shell-extension-apps-menu \
+	gnome-shell-extension-background-logo \
+	gnome-shell-extension-common \
+	gnome-shell-extension-launch-new-instance \
+	gnome-shell-extension-places-menu \
+	gnome-shell-extension-window-list \
+	gnome-text-editor \
+	gnome-tour \
+	gnome-video-effects \
+	gnome-weather \
+	libreoffice-calc \
+	libreoffice-core \
+	libreoffice-data \
+	libreoffice-filters \
+	libreoffice-graphicfilter \
+	libreoffice-gtk3 \
+	libreoffice-gtk4 \
+	libreoffice-help-en \
+	libreoffice-help-pt-BR \
+	libreoffice-impress \
+	libreoffice-langpack-en \
+	libreoffice-langpack-pt-BR \
+	libreoffice-ogltrans \
+	libreoffice-opensymbol-fonts \
+	libreoffice-pdfimport \
+	libreoffice-pyuno \
+	libreoffice-ure \
+	libreoffice-ure-common \
+	libreoffice-writter \
+	libreoffice-x11 \
+	libreoffice-xsltfilter \
+	mediawriter \
+	simple-scan \
+	totem \
+	totem-pl-parser \
+	totem-video-thumbnailer \
+	yelp \
+	yelp-libs \
+	yelp-xsl
+
+# rpm fusion
+
+sudo dnf install -y \
+	https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+	https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 sudo dnf update -y
 
 # install packages
 
-sudo dnf install -y neovim alacritty tmux adw-gtk3-theme firewall-config @virtualization steam-devices @development-tools stow intel-media-driver
+sudo dnf install -y \
+	@development-tools \
+	@virtualization \
+	adw-gtk3-theme \
+	alacritty \
+	firewall-config \
+	gnome-tweaks \
+	intel-media-driver \
+	neovim \
+	steam-devices \
+	stow \
+	tmux
+
 sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 
 # flatpak config
 
 sudo flatpak remote-delete fedora
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --noninteractive -y org.mozilla.firefox org.mozilla.Thunderbird com.getpostman.Postman com.github.IsmaelMartinez.teams_for_linux com.mattjakeman.ExtensionManager io.bassi.Amberol io.github.celluloid_player.Celluloid net.nokyan.Resources org.gimp.GIMP org.gtk.Gtk3theme.adw-gtk3-dark org.libreoffice.LibreOffice com.github.tchx84.Flatseal com.microsoft.Edge org.gnome.Calculator org.gnome.Calendar org.gnome.Characters org.gnome.Evince org.gnome.Extensions org.gnome.Loupe org.gnome.Weather com.valvesoftware.Steam com.github.finefindus.eyedropper
-
+flatpak install --noninteractive -y \
+	com.getpostman.Postman \
+	com.github.IsmaelMartinez.teams_for_linux \
+	com.github.finefindus.eyedropper \
+	com.github.tchx84.Flatseal \
+	com.mattjakeman.ExtensionManager \
+	com.microsoft.Edge \
+	com.transmissionbt.Transmission \
+	com.valvesoftware.Steam \
+	io.bassi.Amberol \
+	io.github.celluloid_player.Celluloid \
+	net.nokyan.Resources \
+	org.gimp.GIMP \
+	org.gnome.Calculator \
+	org.gnome.Calendar \
+	org.gnome.Characters \
+	org.gnome.Evince \
+	org.gnome.Loupe \
+	org.gnome.SimpleScan \
+	org.gnome.Weather \
+	org.gtk.Gtk3theme.adw-gtk3-dark \
+	org.libreoffice.LibreOffice \
+	org.mozilla.Thunderbird \
+	org.mozilla.firefox
 
 # fonts
 
@@ -42,7 +128,7 @@ rm -rf /tmp/FiraCode
 
 ## reload system fonts
 
-fc-cache
+fc-cache -f
 
 # gnome settings
 
@@ -58,12 +144,16 @@ then
 fi
 
 gsettings set org.gnome.desktop.sound allow-volume-above-100-percent 'true'
+gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
 gsettings set org.gnome.desktop.interface clock-show-weekday true
 gsettings set org.gnome.desktop.interface clock-show-seconds true
 
 # system config
 
-# setting umask to 077
+# set umask to 077
 umask 077
 sudo sed -i 's/umask 022/umask 077/g' /etc/bashrc
 
@@ -127,10 +217,32 @@ sudo firewall-cmd --reload
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
 ## symlink dotfiles
-stow --no-folding -d ~/dotfiles -t /home/$(whoami) alacritty tmux nvim 
+stow --no-folding -d ~/dotfiles -t /home/$(whoami) alacritty tmux nvim
+
+## git config
+git config --global user.name "Rafael Morais"
+git config --global user.email "contato@rafaelmoraisjr.com"
+
+## bash
+cat >> ~/.bashrc <<EOF
+
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+export PS1="\[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
+
+alias vim="nvim"
+EOF
+
+echo "export EDITOR=nvim" >> ~/.bash_profile
+
+## ssh-keygen
+if [ ! -e ~/.ssh/ed25519.pub ]
+then
+	ssh-keygen -t ed25519 -a 100
+fi
 
 # tpm setup
-
 echo "add_dracutmodules+=\" tpm2-tss \"" | sudo tee /etc/dracut.conf.d/tpm2.conf
 echo -n "Enter root disk: " 
 read root_disk
