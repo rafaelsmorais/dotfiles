@@ -3,6 +3,7 @@
 # debloat
 
 sudo dnf remove -y \
+	evince \
 	firefox \
 	gnome-boxes \
 	gnome-calculator \
@@ -45,6 +46,7 @@ sudo dnf remove -y \
 	libreoffice-writter \
 	libreoffice-x11 \
 	libreoffice-xsltfilter \
+	loupe \
 	mediawriter \
 	simple-scan \
 	totem \
@@ -60,6 +62,13 @@ sudo dnf install -y \
 	https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
 	https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
+# vscode
+
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+
+# update repos
+
 sudo dnf update -y
 
 # install packages
@@ -69,6 +78,7 @@ sudo dnf install -y \
 	@virtualization \
 	adw-gtk3-theme \
 	alacritty \
+	code \
 	firewall-config \
 	gnome-tweaks \
 	intel-media-driver \
@@ -110,16 +120,15 @@ flatpak install --noninteractive -y \
 
 # fonts
 
-mkdir -p ~/.local/share/fonts
-
-## Inter
+## inter
+mkdir -p ~/.local/share/fonts/Inter
 curl -sL https://github.com/rsms/inter/releases/download/v4.0/Inter-4.0.zip -o /tmp/Inter.zip
 unzip /tmp/Inter.zip -d /tmp/Inter
-cp /tmp/Inter/Inter.ttc ~/.local/share/fonts
-cp /tmp/Inter/*.ttf ~/.local/share/fonts
+cp /tmp/Inter/Inter.ttc ~/.local/share/fonts/Inter
+cp /tmp/Inter/*.ttf ~/.local/share/fonts/Inter
 rm -rf /tmp/Inter*
 
-## FiraCode Nerd Font
+## firacode nerd font
 curl -sL $(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep "browser_download_url.*FiraCode.zip" | cut -d : -f 2,3 | tr -d \") -o /tmp/FiraCode.zip
 unzip /tmp/FiraCode.zip -d /tmp/FiraCode
 rm /tmp/FiraCode/LICENSE /tmp/FiraCode/README.md
