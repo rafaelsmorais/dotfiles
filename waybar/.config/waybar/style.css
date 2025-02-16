@@ -1,0 +1,64 @@
+* {
+    /*font-family: 'Inter Display', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;*/
+    font-family: 'FiraCode Nerd Font', 'Inter Display';
+    font-size: 14px;
+    padding: 2px;
+}
+
+window#waybar {
+    background-color: rgba(26, 27, 38, 0.8);
+    color: #ffffff;
+    /*font-weight: bold;*/
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces button.visible {
+    color: rgba(51, 204, 255, 0.93);
+    border-radius: 0%;
+}
+
+#workspaces button {
+    color: #ffffff;
+    padding: 0 4px;
+    border: none;
+}
+
+window#waybar.empty .modules-center {
+    background-color: transparent;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+    padding: 0 10px;
+    color: #ffffff;
+}
+
+#network.disconnected,
+#wireplumber.muted,
+#workspaces button.urgent,
+#bluetooth.off,
+#bluetooth.disabled {
+    color: #c53b53;
+}
+
+#bluetooth.connected {
+    color: #c3e88d;
+}
